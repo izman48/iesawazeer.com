@@ -1,14 +1,18 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-avatar > 
-        <img
-        src='./assets/iesa.jpg'
-        alt="Iesa"
-        >
-      </v-avatar>
+	<v-app >
+		<v-app-bar app color="black" dark hide-on-scroll>
+			<v-avatar> 
+				<img
+					src='./assets/iesa.jpg'
+					alt="Iesa"
+				>
+			</v-avatar>
 			<v-spacer></v-spacer>
-      <v-toolbar-title >Iesa Wazeer</v-toolbar-title>
+			<v-toolbar-title to="/">
+				<v-btn text to="/" depressed>
+					Iesa Wazeer
+				</v-btn>
+			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn
 				v-for="link in links"
@@ -20,10 +24,10 @@
 				{{ link.label }}
 			</v-btn>
 		</v-app-bar>
-		<v-content>
+		<v-main>
 			<router-view></router-view>
-		</v-content>
-		<v-footer color="primary lighten-1" padless>
+		</v-main>
+		<v-footer color="black lighten-1" padless>
 			<v-layout justify-center wrap>
 				<v-btn
 					v-for="link in links"
@@ -36,7 +40,20 @@
 				>
 					{{ link.label }}
 				</v-btn>
-				<v-flex primary lighten-2 py-4 text-center white--text xs12>
+				<v-flex black lighten-2 py-4 text-center white--text xs12>
+					<v-btn
+						v-for="contact in contacts"
+						:key="`${contact.name}-footer-link`"
+						color="white"
+						text
+						rounded
+						class="my-2"
+						:href="contact.url"
+						target="_blank"
+					>
+						<!-- Can change to icons of github and linkedin -->
+						{{contact.name}}
+					</v-btn>
 					{{ new Date().getFullYear() }} — <strong>Iesa Wazeer Copyright &copy;</strong>
 				</v-flex>
 			</v-layout>
@@ -57,22 +74,22 @@ export default {
 				{
 					label: 'About',
 					url: '/about'
-        },
-        {
+				},
+				{
 					label: 'Projects',
 					url: '/projects'
 				},
-      ],
-      contact: [
-        {
-          github: 'GitHub',
-          url: 'https://github.com/izman48'
-        },
-        {
-          linkedin: 'LinkedIn',
-          url: 'https://www.linkedin.com/in/iesaw/'
-        },
-      ]
+			],
+			contacts: [
+				{
+					name: 'GitHub',
+					url: 'https://github.com/izman48'
+				},
+				{
+					name: 'LinkedIn',
+					url: 'https://www.linkedin.com/in/iesaw/'
+				},
+			]
 		}
 	}
 }
