@@ -24,7 +24,8 @@
       </v-row>
       
       <v-dialog  v-model="dialog" max-width="500px">
-        <v-card>
+        <v-card 
+          v-if="dialog">
             <v-img
             dark
             class="white--text align-center"
