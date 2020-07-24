@@ -2,9 +2,10 @@
   
   <v-card
     class="mx-auto"
-    max-width="400"
+    max-width="90%"
     min-height="600"
     app
+    :to="`/${id}`"
   >
     <!-- <img v-bind:src="img" /> -->
     
@@ -17,7 +18,9 @@
       
     >
     </v-img>
-    <v-card-title>{{title}}</v-card-title>
+    <v-card-title>
+      <p class="text-wrap">{{title}}</p>
+    </v-card-title>
     
     <v-card-subtitle class="pb-0">{{taglist}}</v-card-subtitle>
 
@@ -30,6 +33,7 @@
       <v-btn
         color="orange"
         text
+        :to="`/${id}`"
       >
         Read More
       </v-btn>
@@ -46,7 +50,7 @@
         let list = "";
         for (let t of this.tags) {
           list = list + t + ", ";
-        console.log("TEST:" + this.tags);
+        console.log("TEST:" + (1===this.id))
         }
         
         list = list.substring(0, list.length-2);
@@ -58,6 +62,7 @@
       tags: Array,
       img: String,
       text: String,
+      id: Number,
     }
   }
 </script>
