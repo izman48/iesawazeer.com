@@ -1,18 +1,12 @@
 <template>
 	<v-app >
 		<v-app-bar app color="black" dark hide-on-scroll>
-			<v-avatar> 
+			<v-avatar v-show="$vuetify.breakpoint.smAndUp"> 
 				<img
 					src='./assets/iesa.jpg'
 					alt="Iesa"
 				>
 			</v-avatar>
-			<v-spacer></v-spacer>
-			<v-toolbar-title to="/">
-				<v-btn text to="/" depressed>
-					Iesa Wazeer
-				</v-btn>
-			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn
 				v-for="link in links"
@@ -20,9 +14,18 @@
 				text
 				rounded
 				:to="link.url"
+				:class="justify-center"
 			>
 				{{ link.label }}
 			</v-btn>
+			<v-spacer></v-spacer>
+			<v-toolbar-title v-show="$vuetify.breakpoint.mdAndUp" >
+				<v-btn text to="/" depressed>
+					Iesa Wazeer
+				</v-btn>
+			</v-toolbar-title>
+			
+
 		</v-app-bar>
 		<v-main>
 			<router-view></router-view>

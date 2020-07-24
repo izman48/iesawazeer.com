@@ -18,10 +18,39 @@
             :img="data.img"
             :text="data.text"
             :id="data.index"
+             @expandCard="showCard"
           />
         </v-col>
       </v-row>
+      
+      <v-dialog  v-model="dialog" max-width="500px">
+        <v-card>
+            <v-img
+            dark
+            class="white--text align-center"
+            height="80%"
+            :src="require('../assets/' + info[id].img)"
+            :alt="`${info[id].title}`"
+            
+            >
+            </v-img>
+            <v-card-title>
+            <p class="text-wrap">{{info[id].title}}</p>
+            </v-card-title>
+            
+            <v-card-subtitle class="pb-0">{{info[id].tags}}</v-card-subtitle>
 
+            <v-card-text class="text--primary">
+            <div>{{info[id].text}}</div>
+            </v-card-text>
+
+            <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn text color="primary" @click="dialog = false">Return</v-btn>
+            </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-main>
 
 
@@ -37,6 +66,7 @@ export default {
   data () {
       return {
         dialog: false,
+        id: null,
         info: [
           {
             img:'Traffic.png',
@@ -74,8 +104,19 @@ export default {
     },
     computed: {
       numRows() {
-        console.log(Math.ceil(this.info.length/2));
+        // console.log(Math.ceil(this.info.length/2));
         return Math.ceil(this.info.length/2)
+      }
+    },
+
+    methods: {
+      showCard(id) {
+        this.dialog = true;
+        this.id = id
+        console.log(this.id)
+      },
+      reached() {
+        console.log("reached")
       }
     },
   components: {

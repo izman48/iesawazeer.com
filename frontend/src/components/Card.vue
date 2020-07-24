@@ -5,7 +5,7 @@
     max-width="90%"
     min-height="600"
     app
-    :to="`/${id}`"
+    @click="selectCard(id)"
   >
     <!-- <img v-bind:src="img" /> -->
     
@@ -33,7 +33,7 @@
       <v-btn
         color="orange"
         text
-        :to="`/${id}`"
+        @click="selectCard(id)"
       >
         Read More
       </v-btn>
@@ -50,13 +50,19 @@
         let list = "";
         for (let t of this.tags) {
           list = list + t + ", ";
-        console.log("TEST:" + (1===this.id))
+        // console.log("TEST:" + (1===this.id))
         }
         
         list = list.substring(0, list.length-2);
         return list;
       }
     },
+    methods: {
+      selectCard(id) {
+        this.$emit('expandCard',id)
+      }
+    },
+    
     props: {
       title: String,
       tags: Array,
