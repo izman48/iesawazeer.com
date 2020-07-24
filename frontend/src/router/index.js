@@ -21,14 +21,14 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/Games.vue')
     },
-    {
-        path: '/:id',
-        name: 'CardShow',
-        component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/CardShow.vue'),
-        props: true
+    // {
+    //     // path: '/:id',
+    //     // name: 'CardShow',
+    //     // component: () =>
+    //     //     import ( /* webpackChunkName: "about" */ '../views/CardShow.vue'),
+    //     // props: true
 
-    }
+    // }
 
 ]
 
