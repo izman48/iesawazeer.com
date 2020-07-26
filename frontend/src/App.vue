@@ -14,7 +14,6 @@
 				text
 				rounded
 				:to="link.url"
-				:class="justify-center"
 			>
 				{{ link.label }}
 			</v-btn>
@@ -27,6 +26,7 @@
 			
 
 		</v-app-bar>
+		
 		<v-main>
 			<router-view></router-view>
 		</v-main>
@@ -78,13 +78,14 @@ export default {
 					url: '/'
 				},
 				{
-					label: 'About',
-					url: '/about'
-				},
-				{
 					label: 'Games',
 					url: '/games'
 				},
+				{
+					label: 'About',
+					url: '/about'
+				},
+				
 			],
 			contacts: [
 				{

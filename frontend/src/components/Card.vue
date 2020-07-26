@@ -25,7 +25,7 @@
     <v-card-subtitle class="pb-0">{{taglist}}</v-card-subtitle>
 
     <v-card-text class="text--primary">
-      <div>{{text}}</div>
+      <div>{{summary(text)}}</div>
     </v-card-text>
 
     <v-card-actions>
@@ -60,6 +60,10 @@
     methods: {
       selectCard(id) {
         this.$emit('expandCard',id)
+      },
+      
+      summary(info) {
+        return (info.substring(0,100) + "...")
       }
     },
     
