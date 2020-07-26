@@ -1,6 +1,6 @@
 <template>
 	<v-app >
-		<v-app-bar app color="black" dark hide-on-scroll>
+		<v-app-bar app color="black" dark>
 			<v-avatar v-show="$vuetify.breakpoint.smAndUp"> 
 				<img
 					src='./assets/iesa.jpg'
