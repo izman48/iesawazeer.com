@@ -72,7 +72,7 @@
       tags: Array,
       img: String,
       text: String,
-      id: Number,
+      id: String,
     }
   }
 </script>
