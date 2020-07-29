@@ -59,7 +59,7 @@
             <p class="text-wrap">{{selected.title}}</p>
             </v-card-title>
             
-            <v-card-subtitle class="pb-0">{{selected.tags}}</v-card-subtitle>
+            <v-card-subtitle class="">{{selected.tags}}</v-card-subtitle>
 
             <v-card-text class="text--primary">
             <div>{{selected.text}}</div>
