@@ -161,7 +161,7 @@ export default {
             searchString = searchString + " " + tag;
           // console.log("TEST:" + (1===this.id))
           }
-          if (searchString.includes(this.inSearchBar)) {
+          if (searchString.toLowerCase().includes(this.inSearchBar.toLowerCase())) {
             filtered.push(data)
           }
           searchString = ""
