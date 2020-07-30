@@ -16,7 +16,7 @@
                   class="mx-auto"
                   label="Projects"
                   @click:append="search"
-                  @input="filterInfo"
+                  @input="searchContent"
                 ></v-text-field>
           </v-col>
         </v-row>
@@ -28,7 +28,7 @@
           sm="6"
           md="4"
           lg="4"
-          v-for="data in info"
+          v-for="data in filterInfo"
           :key="data.index"
           
         >
@@ -59,7 +59,7 @@
             <p class="text-wrap">{{selected.title}}</p>
             </v-card-title>
             
-            <v-card-subtitle class="">{{selected.tags}}</v-card-subtitle>
+            <v-card-subtitle class="">{{taglist}}</v-card-subtitle>
 
             <v-card-text class="text--primary">
             <div>{{selected.text}}</div>
@@ -91,6 +91,7 @@ export default {
       return {
         dialog: false,
         hasSearched: false,
+        inSearchBar: '',
         info: [],
         selected: {
           img: '',
@@ -148,23 +149,40 @@ export default {
         });
     },
 
-    methods: {
-      // updateData() {
-      //   const db = this.$firebase.firestore();
-      //   db
-      //     .collection('projects')
-      //     .get()
-      //     .then(snap => {
-      //       const info = [];
-      //       snap.forEach(doc => {
-      //         var data = doc.data();
-      //         data.index = doc.id;
-      //         info.push(data);
-      //       });
-      //       this.info = info;
-      //     });
+    computed: {
+      
+      filterInfo() {
+        // console.log(this.inSearchBar)
+        // if title or tags are a substring of payload then return an array of data found here
+        const filtered = []
+        for (let data of this.info) {
+          let searchString = data.title + " " + data.text
+          for (let tag of data.tags) {
+            searchString = searchString + " " + tag;
+          // console.log("TEST:" + (1===this.id))
+          }
+          if (searchString.includes(this.inSearchBar)) {
+            filtered.push(data)
+          }
+          searchString = ""
+        }
+        // console.log(filtered)
+      
+        return filtered
+      },
+      taglist() {
+        let list = "";
+        for (let t of this.selected.tags) {
+          list = list + t + ", ";
+        // console.log("TEST:" + (1===this.id))
+        }
+        
+        list = list.substring(0, list.length-2);
+        return list;
+      }
+    },
 
-      // },
+    methods: {
       showCard(id) {
         const db = this.$firebase.firestore()
         var docRef = db.collection("projects").doc(id);
@@ -183,6 +201,7 @@ export default {
             console.log("Error getting document:", error);
         });
       },
+
       reached() {
         console.log("reached")
       },
@@ -190,9 +209,9 @@ export default {
         this.hasSearched = true;
         console.log("search")
       },
-      filterInfo(payload) {
-        console.log(payload)
-      }
+      searchContent(payload) {
+        this.inSearchBar = payload
+      },
     },
   components: {
     Card
