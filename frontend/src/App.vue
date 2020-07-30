@@ -2,10 +2,14 @@
 	<v-app >
 		<v-app-bar app color="black" dark>
 			<v-avatar v-show="$vuetify.breakpoint.smAndUp"> 
-				<img
-					src='./assets/iesa.jpg'
-					alt="Iesa"
-				>
+				<v-btn app to="/" depressed icon>
+					<img
+						src='./assets/home-iesa.jpg'
+						alt="Iesa"
+					>
+				</v-btn>
+				
+				
 			</v-avatar>
 			<v-spacer></v-spacer>
 			<v-btn
