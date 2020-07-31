@@ -5,6 +5,7 @@ import vuetify from './plugins/vuetify';
 import router from './router'
 
 require('firebase/firestore');
+require('firebase/storage')
 
 var firebaseConfig = {
     apiKey: "AIzaSyDBF7lQKvliXGY0lKO_9yjtZsowokO1eJ0",
@@ -20,7 +21,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 Vue.prototype.$firebase = firebase;
-
+// Vue.prototype.$firebase = firebase;
 
 Vue.config.productionTip = false
 

@@ -13,7 +13,7 @@
       dark
       class="white--text align-end"
       height="400px"
-      :src="require('../assets/' + img)"
+      :src="img"
       :alt="`${title}`"
       
     >
