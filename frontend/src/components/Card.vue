@@ -1,44 +1,48 @@
 <template>
-  
-  <v-card
-    class="mx-auto"
-    max-width="90%"
-    min-height="600"
-    app
-    @click="selectCard(id)"
-  >
-    <!-- <img v-bind:src="img" /> -->
-    
-    <v-img
-      dark
-      class="white--text align-end"
-      height="400px"
-      :src="img"
-      :alt="`${title}`"
-      
-    >
-    </v-img>
-    <v-card-title>
-      <p class="text-wrap">{{title}}</p>
-    </v-card-title>
-    
-    <v-card-subtitle class="pb-0">{{taglist}}</v-card-subtitle>
+  <v-hover>
+    <template v-slot="{ hover }">
+        <v-card
+          class="mx-auto"
+          :class="`elevation-${hover ? 24 : 6}`"
+          max-width="90%"
+          min-height="600"
+          app
+          @click="selectCard(id)"
+        >
+          <!-- <img v-bind:src="img" /> -->
+          
+          <v-img
+            dark
+            class="white--text align-end"
+            height="400px"
+            :src="img"
+            :alt="`${title}`"
+            
+          >
+          </v-img>
+          <v-card-title>
+            <p class="text-wrap">{{title}}</p>
+          </v-card-title>
+          
+          <v-card-subtitle class="pb-0">{{taglist}}</v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div>{{summary(text)}}</div>
-    </v-card-text>
+          <v-card-text class="text--primary">
+            <div>{{summary(text)}}</div>
+          </v-card-text>
 
-    <v-card-actions>
+          <v-card-actions>
 
-      <v-btn
-        color="orange"
-        text
-        @click="selectCard(id)"
-      >
-        Read More
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+            <v-btn
+              color="orange"
+              text
+              @click="selectCard(id)"
+            >
+              Read More
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+    </template>
+  </v-hover>
 </template>
 
 

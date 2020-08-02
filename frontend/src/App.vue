@@ -1,6 +1,7 @@
 <template>
 	<v-app >
-		<v-app-bar app color="black" dark>
+		<v-app-bar app color="black" dark 
+		:hide-on-scroll="$vuetify.breakpoint.smAndUp">
 			<v-avatar v-show="$vuetify.breakpoint.smAndUp"> 
 				<v-btn app to="/" depressed icon>
 					<img
