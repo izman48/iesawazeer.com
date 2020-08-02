@@ -55,7 +55,7 @@
             <v-img
             dark
             class="white--text align-center"
-            height="80%"
+            height="100%"
             :src="selected.img"
             :alt="`${selected.title}`"
             
@@ -65,7 +65,11 @@
             <p class="text-wrap">{{selected.title}}</p>
             </v-card-title>
             
-            <v-card-subtitle class="">{{taglist}}</v-card-subtitle>
+            <v-card-subtitle>
+              
+              {{taglist}}
+              
+            </v-card-subtitle>
 
             <v-card-text class="text--primary">
             <div>{{selected.text}}</div>

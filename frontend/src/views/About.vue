@@ -14,7 +14,7 @@
             very sunny and by the beach so I am really bad with cold weather. 
           </p>
           <p> 
-            <strong> Where do you study?? </strong>
+            <strong> Where do you study? </strong>
           </p>
           <p>
             I'm currently in my final year at The University of Warwick. Prior to this I studied at Wycherley Internation School which is from 
