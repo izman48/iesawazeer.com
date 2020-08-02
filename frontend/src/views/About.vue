@@ -47,9 +47,40 @@
             on the internet. I'm hoping to add loads of little games on this site in the future and to keep a little journal of all my projects I have
             done!
           </p>
+          <p> 
+            <strong> Where can I find your resume? </strong>
+          </p>
+          <p>
+            Here's a 
+            <a :href="link" target="_blank">copy </a> of my resume! I'll be updating it periodically but feel free to contact me on LinkedIn, check out my GitHub or 
+              email me by following the links at the bottom of the page!
+          </p>
 
         </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
+
+<script>
+export default {
+  data () {
+      return {
+        link: ""
+      }
+  },
+  mounted() {
+    let storage = this.$firebase.storage();
+    let storageRef = storage.ref().child('documents');
+    storageRef.child("Resume.pdf")
+    .getDownloadURL().then((url) => {
+      this.link = url
+    // console.log(this.selected.img)
+    }).catch((error) =>{
+      // Handle any errors
+      console.log(error)
+      this.link = "https://www.linkedin.com/in/iesaw/"
+    });
+  }
+}
+</script>

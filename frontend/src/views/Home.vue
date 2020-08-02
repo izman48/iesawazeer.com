@@ -1,7 +1,11 @@
 <template>
   <div class="projects">
     
-    <v-main>
+    <!-- <v-main> -->
+      <v-parallax 
+      src="../assets/background.jpg"
+      :height="$vuetify.breakpoint.smAndUp ? 500: 700"
+      >
       <v-container>
         <v-row>
           <v-col>
@@ -21,6 +25,8 @@
           </v-col>
         </v-row>
       </v-container>
+      </v-parallax>
+
       <v-row>
         
         <v-col 
@@ -72,7 +78,7 @@
             </v-card-actions>
         </v-card>
       </v-dialog>
-    </v-main>
+    <!-- </v-main> -->
 
 
   </div>
@@ -106,7 +112,7 @@ export default {
     mounted() {
       const db = this.$firebase.firestore();
       let storage = this.$firebase.storage();
-      let storageRef = storage.ref();
+      let storageRef = storage.ref().child('images');
       db
         .collection('projects')
         .onSnapshot(snap => {
@@ -118,7 +124,7 @@ export default {
             .getDownloadURL().then((url) => {
               data.img = url
               // console.log(data.img)
-            }).catch(function(error) {
+            }).catch((error) => {
               // Handle any errors
               console.log(error)
             });
@@ -166,19 +172,19 @@ export default {
       showCard(id) {
         const db = this.$firebase.firestore()
         let storage = this.$firebase.storage();
-        let storageRef = storage.ref();
+        let storageRef = storage.ref().child('images');
         var docRef = db.collection("projects").doc(id);
 
         docRef.get().then((doc) => {
           if (doc.exists) {
-            console.log('Document data:', doc.data());
+            // console.log('Document data:', doc.data());
             this.selected = doc.data()
             let imgName = this.selected.img
             storageRef.child(imgName)
             .getDownloadURL().then((url) => {
               this.selected.img = url
               // console.log(this.selected.img)
-            }).catch(function(error) {
+            }).catch((error) =>{
               // Handle any errors
               console.log(error)
             });
@@ -188,7 +194,7 @@ export default {
               // doc.data() will be undefined in this case
               console.log("No such document!");
           }
-        }).catch(function(error) {
+        }).catch((error) => {
             console.log("Error getting document:", error);
         });
       },
