@@ -1,13 +1,19 @@
 # IesaWazeer.com
 
-This is a personal portfolio website made using HTML, CSS, and JavaScript. This project will be using Vue.js for the frontend and Firebase for the backend
+This is a personal portfolio website made using VueJS. I have used Vuetify and the backend is handled on firebase.
 
 ## Installation
+Install npm on your pc
+
+In the frontend folder to download the dependencies:
 ```
-TBD - use npm install
+npm install
+```
+
+## Usage
+
+To run dev server:
 
 ```
-## Usage
-```
-Run node index.html / Open index.html
+npm run serve
 ```
