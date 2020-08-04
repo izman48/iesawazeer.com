@@ -8,26 +8,26 @@
 						alt="Iesa"
 					>
 				</v-btn>
-				
-				
+					
+					
 			</v-avatar>
 			<v-toolbar-title v-show="$vuetify.breakpoint.mdAndUp" class="ms-6">
 				<v-btn text to="/" depressed>
 					Iesa Wazeer
 				</v-btn>
+			
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
 			<v-btn
 				v-for="link in links"
 				:key="`${link.label}-header-link`"
-				class="ms-4"
 				text
 				rounded
 				:to="link.url"
 			>
 				{{ link.label }}
 			</v-btn>
-			<!-- <v-spacer></v-spacer> -->
+			<v-spacer v-show="$vuetify.breakpoint.xs"></v-spacer>
 			
 			
 
