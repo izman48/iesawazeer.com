@@ -11,7 +11,7 @@
           </p>
           <p>
             I'm a Computer Science student who enjoys messing around with software and building new things! I'm from Sri Lanka which is 
-            very sunny and by the beach so I am really bad with cold weather. 
+            pretty famous for its beaches and its tea.
           </p>
           <p> 
             <strong> Where do you study? </strong>
@@ -36,8 +36,9 @@
             <strong> Hobbies? </strong>
           </p>
           <p>
-            I play Rocket League quite a lot and am an active member of the Warwick Rocket League Discord (I've taken part in loads of tournaments
-            too!). Other than that I enjoy Anime, Movies, Tv, Audiobooks and hanging out with people. 
+            I try to spend my free time hanging out with people as much as I can. I spent about 6 years playing cricket for my school team and now
+            enjoy spending some time taking part in University Esports for Rocket League.
+            Other hobbies include Music, Audiobooks, Movies, Gaming and TV.
           </p>
           <p> 
             <strong> Why did you make this site? </strong>
@@ -52,7 +53,7 @@
           </p>
           <p>
             Here's a 
-            <a :href="link" target="_blank">copy </a> of my resume! I'll be updating it periodically but feel free to contact me on LinkedIn, check out my GitHub or 
+            <a :href="link" target="_blank">copy</a> of my resume! I'll be updating it periodically but feel free to contact me on LinkedIn, check out my GitHub or 
               email me by following the links at the bottom of the page!
           </p>
 
