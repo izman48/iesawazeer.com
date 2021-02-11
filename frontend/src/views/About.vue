@@ -10,14 +10,13 @@
             <strong> Who are you? </strong>
           </p>
           <p>
-            I'm a Computer Science student who enjoys messing around with software and building new things! I'm from Sri Lanka which is 
-            pretty famous for its beaches and its tea.
+            I'm a Computer Science student from Sri Lanka who enjoys building software and working with others to make a difference in the world.
           </p>
           <p> 
             <strong> Where do you study? </strong>
           </p>
           <p>
-            I'm currently in my final year at The University of Warwick. Prior to this I studied at Wycherley International School which is from 
+            I'm currently in my final year of my BSc (Hons) at The University of Warwick. Prior to this I studied at Wycherley International School from 
             Sri Lanka.
           </p>
           <p> 
@@ -30,7 +29,7 @@
             <strong> What languages do you use? </strong>
           </p>
           <p>
-            Java, Python, JavaScript, C... I'm happy to pick up any language or framework really as long as I get to work on something interesting. 
+            Java, Python, JavaScript, C, C#, C++... I try to be language agnostic and am willing to learn anything as long as I get to work on something interesting. 
           </p>
           <p> 
             <strong> Hobbies? </strong>
@@ -38,14 +37,14 @@
           <p>
             I try to spend my free time hanging out with people as much as I can. I spent about 6 years playing cricket for my school team and now
             enjoy spending some time taking part in University Esports for Rocket League.
-            Other hobbies include Music, Audiobooks, Movies, Gaming and TV.
+            Other hobbies include DnD, Music, Audiobooks, Movies, Gaming and TV.
           </p>
           <p> 
             <strong> Why did you make this site? </strong>
           </p>
           <p>
-            To learn Vue while I was bored during quarantine as well as for fun. Building stuff is always exciting and I love having my own space 
-            on the internet. I'm hoping to add loads of little games on this site in the future and to keep a little journal of all my projects I have
+            To learn Vue while I was bored during quarantine (also for fun). Building stuff is always exciting and I love having my own space 
+            on the internet. I'm hoping to add loads of little games on this site in the future and to keep a little journal of all the projects I have
             done!
           </p>
           <p> 
