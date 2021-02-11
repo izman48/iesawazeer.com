@@ -9,18 +9,18 @@ const routes = [{
         name: 'Home',
         component: Home,
     },
-    // {
-    //     path: '/about',
-    //     name: 'About',
-    //     component: () =>
-    //         import ( /* webpackChunkName: "about" */ '../views/About.vue')
-    // },
     {
-        path: '/games',
-        name: 'Games',
+        path: '/about',
+        name: 'About',
         component: () =>
-            import ( /* webpackChunkName: "about" */ '../views/Games.vue')
+            import ( /* webpackChunkName: "about" */ '../views/About.vue')
     },
+    // {
+    //     path: '/games',
+    //     name: 'Games',
+    //     component: () =>
+    //         import ( /* webpackChunkName: "about" */ '../views/Games.vue')
+    // },
     // {
     //     // path: '/:id',
     //     // name: 'CardShow',
