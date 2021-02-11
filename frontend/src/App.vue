@@ -86,10 +86,7 @@ export default {
 					label: 'Home',
 					url: '/'
 				},
-				{
-					label: 'Games',
-					url: '/games'
-				},
+				
 				{
 					label: 'About',
 					url: '/about'
