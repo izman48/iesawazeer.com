@@ -1,4 +1,4 @@
-import { FEATURED_PROJECTS, GITHUB_USER } from '@/data/projects';
+import { GITHUB_USER, type FeaturedProject } from '@/data/projects';
 
 export interface ProjectInfo {
   name: string;
@@ -10,9 +10,11 @@ export interface ProjectInfo {
 
 // Fetched at build time (static export), so this never runs in the browser.
 // If the GitHub API is unavailable the site still builds with the local blurbs.
-export async function getFeaturedProjects(): Promise<ProjectInfo[]> {
+export async function getProjects(
+  list: FeaturedProject[],
+): Promise<ProjectInfo[]> {
   return Promise.all(
-    FEATURED_PROJECTS.map(async ({ repo, blurb }) => {
+    list.map(async ({ repo, blurb }) => {
       const fallback: ProjectInfo = {
         name: repo,
         url: `https://github.com/${GITHUB_USER}/${repo}`,
@@ -21,9 +23,16 @@ export async function getFeaturedProjects(): Promise<ProjectInfo[]> {
         stars: 0,
       };
       try {
+        const headers: Record<string, string> = {
+          Accept: 'application/vnd.github+json',
+        };
+        // Optional: avoids unauthenticated rate limits during builds.
+        if (process.env.GITHUB_TOKEN) {
+          headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+        }
         const res = await fetch(
           `https://api.github.com/repos/${GITHUB_USER}/${repo}`,
-          { headers: { Accept: 'application/vnd.github+json' } },
+          { headers },
         );
         if (!res.ok) return fallback;
         const data = await res.json();

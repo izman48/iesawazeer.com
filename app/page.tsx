@@ -1,10 +1,34 @@
 import Link from 'next/link';
 import { getAllPosts } from '@/lib/posts';
-import { getFeaturedProjects } from '@/lib/github';
+import { getProjects } from '@/lib/github';
+import { FEATURED_PROJECTS, UNI_PROJECTS } from '@/data/projects';
+import type { ProjectInfo } from '@/lib/github';
+
+function ProjectList({ projects }: { projects: ProjectInfo[] }) {
+  return (
+    <div>
+      {projects.map((p) => (
+        <div className="project" key={p.name}>
+          <div className="title-row">
+            <a href={p.url}>{p.name}</a>
+            <span className="meta">
+              {p.language}
+              {p.stars > 0 ? ` · ★ ${p.stars}` : ''}
+            </span>
+          </div>
+          {p.description && <p>{p.description}</p>}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default async function Home() {
   const posts = getAllPosts().slice(0, 5);
-  const projects = await getFeaturedProjects();
+  const [featured, uni] = await Promise.all([
+    getProjects(FEATURED_PROJECTS),
+    getProjects(UNI_PROJECTS),
+  ]);
 
   return (
     <>
@@ -17,7 +41,12 @@ export default async function Home() {
       <p>
         More about me and my history on the <Link href="/about/">about page</Link>,
         and if we&apos;re collaborating, read{' '}
-        <Link href="/working-with-me/">how to work with me</Link>.
+        <Link href="/working-with-me/">how to work with me</Link>. My up-to-date
+        CV is{' '}
+        <a href="https://github.com/izman48/izman48/blob/main/Iesa-Wazeer-CV.pdf">
+          on GitHub
+        </a>
+        .
       </p>
 
       <h2>Projects</h2>
@@ -25,20 +54,14 @@ export default async function Home() {
         A few things I&apos;ve built —{' '}
         <a href="https://github.com/izman48">more on GitHub</a>.
       </p>
-      <div>
-        {projects.map((p) => (
-          <div className="project" key={p.name}>
-            <div className="title-row">
-              <a href={p.url}>{p.name}</a>
-              <span className="meta">
-                {p.language}
-                {p.stars > 0 ? ` · ★ ${p.stars}` : ''}
-              </span>
-            </div>
-            {p.description && <p>{p.description}</p>}
-          </div>
-        ))}
-      </div>
+      <ProjectList projects={featured} />
+
+      <h2>From my university days</h2>
+      <p className="muted">
+        Older work from studying Computer Science at Warwick — kept around
+        because I&apos;m fond of it.
+      </p>
+      <ProjectList projects={uni} />
 
       <h2>Writing</h2>
       {posts.length === 0 ? (
