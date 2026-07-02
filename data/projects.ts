@@ -55,7 +55,9 @@ export const UNI_PROJECTS: FeaturedProject[] = [
       'Data-visualisation challenge: charts, filtering, a pinned map, Vuex, and Jest tests.',
   },
   {
-    repo: 'iesawazeer.com',
+    title: 'iesawazeer.com',
+    url: 'https://github.com/izman48/iesawazeer.com/tree/vue-legacy',
+    tags: ['Vue', 'Firebase'],
     blurb:
       'The previous version of this site (Vue + Firebase) — built in two weeks while locked up in a quarantine camp in 2020, determined to leave with something to show for it.',
   },
