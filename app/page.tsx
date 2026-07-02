@@ -33,6 +33,12 @@ export default async function Home() {
   return (
     <>
       <h1>Hi, I&apos;m Iesa 👋</h1>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/iesa.jpg"
+        alt="Iesa on the Brooklyn Bridge, Manhattan skyline behind"
+        className="portrait"
+      />
       <p>
         London-based engineer. I enjoy building cool stuff, and I&apos;m
         founding nilu inc — right now that means{' '}
