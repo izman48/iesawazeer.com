@@ -1,19 +1,30 @@
-# IesaWazeer.com
+# iesawazeer.com
 
-This is a personal portfolio website made using VueJS. I have used Vuetify and the backend is handled on firebase.
+Personal site. Next.js (App Router) + MDX, statically exported and deployed
+to Netlify on merge to `master`.
 
-## Installation
-Install npm on your pc
+The previous Vue 2 + Vuetify version is preserved on the `vue-legacy` branch.
 
-In the frontend folder to download the dependencies:
+## Develop
+
 ```
 npm install
+npm run dev
 ```
 
-## Usage
+## Add a blog post
 
-To run dev server:
+Drop a `.mdx` file in `content/posts/` with frontmatter:
 
 ```
-npm run serve
+---
+title: My post
+date: '2026-07-02'
+description: Optional one-liner.
+---
 ```
+
+## Feature a project
+
+Add its repo name to `data/projects.ts`. Description, language, and stars are
+pulled from the GitHub API at build time; set `blurb` to override the wording.
