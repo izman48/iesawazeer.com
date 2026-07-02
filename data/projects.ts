@@ -18,6 +18,13 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
   { repo: 'llm-control-plane' },
   { repo: 'llm-rl-playground' },
   { repo: 'finance-tracker' },
+  {
+    title: 'jnwrentacar.com',
+    url: 'https://jnwrentacar.com/',
+    tags: ['TypeScript', 'Live site'],
+    blurb:
+      'The site for JNW Lanka Tours — car rentals, airport transfers, and tour experiences across Sri Lanka.',
+  },
 ];
 
 // Older projects from my university days (and just before/after).
