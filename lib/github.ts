@@ -2,10 +2,9 @@ import { GITHUB_USER, type FeaturedProject } from '@/data/projects';
 
 export interface ProjectInfo {
   name: string;
-  url: string;
+  url: string | null;
   description: string;
-  language: string | null;
-  stars: number;
+  meta: string; // "Python · ★ 3" for repos, "Unity, C#, Game Jam" for the rest
 }
 
 // Fetched at build time (static export), so this never runs in the browser.
@@ -14,13 +13,20 @@ export async function getProjects(
   list: FeaturedProject[],
 ): Promise<ProjectInfo[]> {
   return Promise.all(
-    list.map(async ({ repo, blurb }) => {
+    list.map(async ({ repo, title, blurb, url, tags }) => {
+      if (!repo) {
+        return {
+          name: title ?? '',
+          url: url ?? null,
+          description: blurb ?? '',
+          meta: tags?.join(', ') ?? '',
+        };
+      }
       const fallback: ProjectInfo = {
         name: repo,
         url: `https://github.com/${GITHUB_USER}/${repo}`,
         description: blurb ?? '',
-        language: null,
-        stars: 0,
+        meta: '',
       };
       try {
         const headers: Record<string, string> = {
@@ -36,12 +42,17 @@ export async function getProjects(
         );
         if (!res.ok) return fallback;
         const data = await res.json();
+        const meta = [
+          data.language,
+          data.stargazers_count > 0 ? `★ ${data.stargazers_count}` : null,
+        ]
+          .filter(Boolean)
+          .join(' · ');
         return {
           name: data.name,
           url: data.html_url,
           description: blurb ?? data.description ?? '',
-          language: data.language,
-          stars: data.stargazers_count,
+          meta,
         };
       } catch {
         return fallback;

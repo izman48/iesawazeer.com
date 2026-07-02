@@ -10,11 +10,8 @@ function ProjectList({ projects }: { projects: ProjectInfo[] }) {
       {projects.map((p) => (
         <div className="project" key={p.name}>
           <div className="title-row">
-            <a href={p.url}>{p.name}</a>
-            <span className="meta">
-              {p.language}
-              {p.stars > 0 ? ` · ★ ${p.stars}` : ''}
-            </span>
+            {p.url ? <a href={p.url}>{p.name}</a> : <strong>{p.name}</strong>}
+            {p.meta && <span className="meta">{p.meta}</span>}
           </div>
           {p.description && <p>{p.description}</p>}
         </div>
