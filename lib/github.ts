@@ -4,7 +4,7 @@ export interface ProjectInfo {
   name: string;
   url: string | null;
   description: string;
-  meta: string; // "Python · ★ 3" for repos, "Unity, C#, Game Jam" for the rest
+  meta: string; // language for repos, tags for the rest
 }
 
 // Fetched at build time (static export), so this never runs in the browser.
@@ -42,17 +42,11 @@ export async function getProjects(
         );
         if (!res.ok) return fallback;
         const data = await res.json();
-        const meta = [
-          data.language,
-          data.stargazers_count > 0 ? `★ ${data.stargazers_count}` : null,
-        ]
-          .filter(Boolean)
-          .join(' · ');
         return {
           name: data.name,
           url: data.html_url,
           description: blurb ?? data.description ?? '',
-          meta,
+          meta: data.language ?? '',
         };
       } catch {
         return fallback;
