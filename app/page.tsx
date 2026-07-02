@@ -41,12 +41,7 @@ export default async function Home() {
       <p>
         More about me and my history on the <Link href="/about/">about page</Link>,
         and if we&apos;re collaborating, read{' '}
-        <Link href="/working-with-me/">how to work with me</Link>. My up-to-date
-        CV is{' '}
-        <a href="https://github.com/izman48/izman48/blob/main/Iesa-Wazeer-CV.pdf">
-          on GitHub
-        </a>
-        .
+        <Link href="/working-with-me/">how to work with me</Link>.
       </p>
 
       <h2>Projects</h2>

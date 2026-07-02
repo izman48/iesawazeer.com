@@ -32,11 +32,7 @@ export default function RootLayout({
         <main>{children}</main>
         <footer className="site-footer">
           <a href="https://github.com/izman48">GitHub</a> ·{' '}
-          <a href="https://www.linkedin.com/in/iesaw/">LinkedIn</a> ·{' '}
-          <a href="https://github.com/izman48/izman48/blob/main/Iesa-Wazeer-CV.pdf">
-            CV
-          </a>{' '}
-          ·
+          <a href="https://www.linkedin.com/in/iesaw/">LinkedIn</a> ·
           Discord <code>izman48</code>
         </footer>
       </body>
