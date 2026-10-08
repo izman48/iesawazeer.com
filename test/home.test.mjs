@@ -117,10 +117,25 @@ function introText(sectionHtml) {
   return decode(intro[1].replace(/<[^>]+>/g, ''));
 }
 
+// All visible characters in a fragment, whitespace ignored, so text can be
+// compared regardless of how the markup splits it.
+function visibleChars(fragment) {
+  return decode(fragment.replace(/<[^>]+>/g, '')).replace(/\s+/g, '');
+}
+
 function snapshotLines(heading, entries) {
   const html = section(heading);
   const rows = projectItems(html);
   assert.equal(rows.length, entries.length, `${heading}: one row per entry`);
+  // The parsed parts must account for every visible character in the
+  // section, so text in an extra element (a second paragraph, a new block
+  // between intro and list) cannot slip past the snapshot.
+  const parsed = [
+    heading,
+    introText(html),
+    ...rows.flatMap((row) => [row.title, row.meta, row.blurb]),
+  ].filter(Boolean);
+  assert.equal(visibleChars(html), parsed.join('').replace(/\s+/g, ''), `${heading}: no unparsed text`);
   return [
     `## ${heading}`,
     introText(html),
