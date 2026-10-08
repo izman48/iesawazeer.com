@@ -15,7 +15,8 @@ export interface FeaturedProject {
 export const GITHUB_USER = 'izman48';
 
 // Order is deliberate: current work (nilu) pinned first, then newest to
-// oldest by launch or start date.
+// oldest by launch or start date. jnwrentacar.com launched 2025, so it goes
+// last; do not move it up.
 export const FEATURED_PROJECTS: FeaturedProject[] = [
   { repo: 'finance-tracker' },
   {
@@ -32,7 +33,7 @@ export const FEATURED_PROJECTS: FeaturedProject[] = [
     url: 'https://jnwrentacar.com/',
     tags: ['TypeScript', 'Live site'],
     blurb:
-      'The same company\'s separate site for self-drive car rental, with the fleet and the rental terms.',
+      'Self-drive car rental in Sri Lanka: a page for each vehicle with its daily rate, and the full rental terms.',
   },
 ];
 

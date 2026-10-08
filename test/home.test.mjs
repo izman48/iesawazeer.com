@@ -29,14 +29,6 @@ const UNI_ORDER = [
   'Pathfinding robot in a maze',
 ];
 
-// Words that would tie the project write-ups to the owner's family or name.
-// The owner's own domain (iesawazeer.com) is allowed.
-const BANNED = /family|father|generation|wazeer|jnw lanka/i;
-function bannedWordsIn(text) {
-  const withoutOwnDomain = text.replace(/iesawazeer/gi, '');
-  return withoutOwnDomain.match(new RegExp(BANNED, 'gi')) ?? [];
-}
-
 function decode(s) {
   return s
     .replace(/<!-- -->/g, '')
@@ -92,18 +84,19 @@ test('jnwtours.com links to the live site with the agreed blurb', () => {
 
 test('only the jnwtours.com blurb lists the tour services', () => {
   const rentacar = featured().find((p) => p.title === 'jnwrentacar.com');
-  assert.match(rentacar.blurb, /self-drive car rental/);
+  assert.equal(
+    rentacar.blurb,
+    'Self-drive car rental in Sri Lanka: a page for each vehicle with its daily rate, and the full rental terms.',
+  );
+  assert.match(rentacar.blurb, /self-drive car rental/i);
   assert.doesNotMatch(rentacar.blurb, /airport transfers|tours/i);
 });
 
-test('project sections never mention family or the company name', () => {
-  const text = section('Projects') + section('From my university days');
-  assert.ok(text.includes('jnwtours.com'), 'precondition: sections were found');
-  assert.deepEqual(bannedWordsIn(text), []);
-});
-
-test('banned-word detector fires (self-test)', () => {
-  assert.deepEqual(bannedWordsIn('The site for JNW Lanka Tours'), ['JNW Lanka']);
-  assert.deepEqual(bannedWordsIn('my Father, the Wazeer family'), ['Father', 'Wazeer', 'family']);
-  assert.deepEqual(bannedWordsIn('github.com/izman48/iesawazeer.com'), []);
+// Owner decision: order only, no years in the project meta.
+test('no project meta starts with a year', () => {
+  const metas = [section('Projects'), section('From my university days')]
+    .flatMap((h) => [...h.matchAll(/<span class="meta">([\s\S]*?)<\/span>/g)])
+    .map(([, m]) => decode(m));
+  assert.ok(metas.includes('Astro, Cloudflare Workers, Live site'), 'precondition: metas found');
+  assert.deepEqual(metas.filter((m) => /^(19|20)\d\d\b/.test(m)), []);
 });

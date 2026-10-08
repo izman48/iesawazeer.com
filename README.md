@@ -12,6 +12,17 @@ npm install
 npm run dev
 ```
 
+## Test
+
+```
+npm test           # builds the static export, then runs the tests
+npm run test:unit  # tests only, against the existing out/
+npm run typecheck
+```
+
+The tests use Node's built-in runner and need Node 22.18 or newer (native
+TypeScript type stripping).
+
 ## Add a blog post
 
 Drop a `.mdx` file in `content/posts/` with frontmatter:
