@@ -1,0 +1,38 @@
+## Projects
+What I'm working on now comes first, then newest to oldest. More on GitHub.
+- finance-tracker [<from GitHub>] https://github.com/izman48/finance-tracker
+  <from GitHub>
+- jnwtours.com [Astro, Cloudflare Workers, Live site] https://jnwtours.com/
+  A site for a Sri Lankan tour and transfer company: airport transfers, self-drive rental and private tours. Static pages built with Astro, and a Cloudflare Worker that handles the enquiry forms.
+- llm-control-plane [<from GitHub>] https://github.com/izman48/llm-control-plane
+  <from GitHub>
+- llm-rl-playground [<from GitHub>] https://github.com/izman48/llm-rl-playground
+  <from GitHub>
+- jnwrentacar.com [TypeScript, Live site] https://jnwrentacar.com/
+  Self-drive car rental in Sri Lanka: a page for each vehicle with its daily rate, and the full rental terms.
+## From my university days
+Older work from studying Computer Science at Warwick, newest first. Kept around because I'm fond of it.
+- 2d-fighting-game-rl-ai-training-tool-dissertation [<from GitHub>] https://github.com/izman48/2d-fighting-game-rl-ai-training-tool-dissertation
+  Final-year project: an RL agent (Unity ML-Agents + PyTorch) that learns a custom 2D fighting game inspired by Smash Bros, with training checkpoints saved as difficulty "levels". Received a 1st.
+- Derivative trade system for Deutsche Bank [Django, Python, MongoDB, React]
+  Group project presented to Deutsche Bank: a derivative-trade system with a learning component flagging incorrect trades. I co-built the backend and led the testing plan.
+- The Warwick Esports website [HTML, CSS, JavaScript, Firebase] https://warwickesports.com/
+  As Technical Secretary of Warwick Esports I led coders and non-coders rebuilding the society site, adding a Firebase-backed news section used for weekly releases and announcing the HyperX partnership.
+- TourneyBot [<from GitHub>] https://github.com/izman48/TourneyBot
+  One of three Discord bots (Shepard, Dude, and MarianBot — the first two named after Rocket League's AI bots) I built for the 200+ member Warwick Rocket League server: tournaments, auto-created voice channels. Earned me the Contributor role.
+- Verticality — NSE Game Jam 2021 [Unity, C#, Game Jam]
+  Gathered a team of five for the NSE × Barclays game jam and prototyped a first-person parkour battle royale inspired by Mirror's Edge, Mario Kart, and Portal.
+- Tetris [<from GitHub>] https://github.com/izman48/Tetris
+  Tetris from scratch in C++ and OpenGL over a weekend for Computer Graphics — wall kicks, hold piece, scoring with difficulties — then shaders for a pseudo-3D look.
+- JS-Challenge [<from GitHub>] https://github.com/izman48/JS-Challenge
+  Data-visualisation challenge: charts, filtering, a pinned map, Vuex, and Jest tests.
+- Iris dataset classification [Python, ML, Jupyter]
+  Supervised learning on the classic Iris dataset: PCA, multi-class perceptrons, and RBF-kernel projections to find where the data becomes linearly separable.
+- Image preprocessing with OpenCV [Python, OpenCV, Tesseract]
+  Summer internship project preparing documents for OCR text extraction — finished two weeks early, so extended it to handle documents from dot-matrix printers.
+- iesawazeer.com [Vue, Firebase] https://github.com/izman48/iesawazeer.com/tree/vue-legacy
+  The previous version of this site (Vue + Firebase) — built in two weeks while locked up in a quarantine camp in 2020, determined to leave with something to show for it.
+- Traffic-roundabout-visualisation [<from GitHub>] https://github.com/izman48/Traffic-roundabout-visualisation
+  First-year visualisation: autonomous agents + steering forces simulating traffic around a roundabout. Learned it all from The Coding Train — massive shoutout.
+- Pathfinding robot in a maze [Java]
+  My very first uni project: guiding a robot out of mazes (loops included) with pathfinding algorithms like A*.
