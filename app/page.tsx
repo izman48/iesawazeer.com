@@ -6,17 +6,19 @@ import type { ProjectInfo } from '@/lib/github';
 
 function ProjectList({ projects }: { projects: ProjectInfo[] }) {
   return (
-    <div>
+    // An ordered list because the order is deliberate (see data/projects.ts).
+    // role="list" keeps list semantics in Safari once the bullets are reset.
+    <ol className="project-list" role="list">
       {projects.map((p) => (
-        <div className="project" key={p.name}>
+        <li className="project" key={p.name}>
           <div className="title-row">
             {p.url ? <a href={p.url}>{p.name}</a> : <strong>{p.name}</strong>}
             {p.meta && <span className="meta">{p.meta}</span>}
           </div>
           {p.description && <p>{p.description}</p>}
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
   );
 }
 
@@ -49,15 +51,15 @@ export default async function Home() {
 
       <h2>Projects</h2>
       <p className="muted">
-        A few things I&apos;ve built —{' '}
-        <a href="https://github.com/izman48">more on GitHub</a>.
+        What I&apos;m working on now comes first, then newest to oldest.{' '}
+        <a href="https://github.com/izman48">More on GitHub</a>.
       </p>
       <ProjectList projects={featured} />
 
       <h2>From my university days</h2>
       <p className="muted">
-        Older work from studying Computer Science at Warwick — kept around
-        because I&apos;m fond of it.
+        Older work from studying Computer Science at Warwick, newest first.
+        Kept around because I&apos;m fond of it.
       </p>
       <ProjectList projects={uni} />
 
