@@ -58,7 +58,7 @@ test('every figure in a post has one image and a caption', () => {
 
 test('the health.nilu.app post shows the app screens and the architecture', () => {
   const html = article('health-nilu-app');
-  assert.match(html, /<h1>How I use health\.nilu\.app, and how it works<\/h1>/);
+  assert.match(html, /<h1>I built a health tracker that I talk to<\/h1>/);
   const sources = images(html).map((img) => attr(img, 'src'));
   for (const name of ['dashboard.webp', 'mobile.webp', 'history.webp', 'architecture.svg', 'changes.webp', 'goal.webp']) {
     assert.ok(sources.includes(`/images/health-nilu-app/${name}`), `shows ${name}`);
