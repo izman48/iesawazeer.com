@@ -35,6 +35,18 @@ description: Optional one-liner.
 ---
 ```
 
+Pictures go in `public/images/<post-slug>/` and into the post as a figure:
+
+```
+<figure>
+  <img src="/images/my-post/chart.webp" alt="What the picture shows" width="1600" height="1125" />
+  <figcaption>One line of caption.</figcaption>
+</figure>
+```
+
+`className="phone"` on the figure keeps a phone screenshot narrow. The tests
+check that each picture exists and has alt text.
+
 ## Feature a project
 
 Add its repo name to `data/projects.ts`. Description, language, and stars are

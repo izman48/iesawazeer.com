@@ -18,6 +18,8 @@ registerHooks({
     if (!existsSync(fileURLToPath(url)) && existsSync(fileURLToPath(url) + '.ts')) {
       return nextResolve(url.href + '.ts', context);
     }
-    return nextResolve(url.href, context);
+    // A relative import that needs no help goes on unchanged, so CommonJS
+    // packages (gray-matter) keep Node's own extensionless resolution.
+    return isAlias ? nextResolve(url.href, context) : nextResolve(specifier, context);
   },
 });

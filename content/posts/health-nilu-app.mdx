@@ -1,0 +1,234 @@
+---
+title: How I built health.nilu.app, and how I use it
+date: '2026-11-22'
+description: A calorie and weight tracker with one user. I tell Claude what I ate, and a small web app draws the graphs.
+---
+
+health.nilu.app is a calorie and weight tracker with exactly one user: me.
+It has no food database and no barcode scanner. I tell Claude what I ate, in
+a normal sentence, and Claude logs it. A small web app shows the graphs.
+
+I built it for three reasons:
+
+1. **I want to lose weight, for real.** I needed a tool that I would use
+   every day.
+2. **Logging in a chat is faster.** A normal calorie app makes you search for
+   each food, pick a portion and tap through screens. Here I type one
+   sentence.
+3. **I own my data.** The record is one SQLite file on a server that I
+   control. I can export all of it as JSON, and I can delete all of it with
+   one command. Claude reads what I type, so this is not a secret diary, but
+   the record itself is mine.
+
+<figure>
+  <img
+    src="/images/health-nilu-app/dashboard.webp"
+    alt="The dashboard: a weight chart with a trend line and a dashed plan line to the goal, a calorie chart below it, and the meals logged today"
+    width="1600"
+    height="1125"
+  />
+  <figcaption>
+    The dashboard. Every picture in this post uses invented demo data, not my
+    numbers.
+  </figcaption>
+</figure>
+
+## How I use it
+
+**Food.** I tell Claude what I ate. For example:
+
+> Chicken and avocado wrap and a bag of crisps for lunch.
+
+Claude estimates the calories, logs the meal, and answers in one or two
+lines. With the demo data from the pictures, the answer looks like this:
+
+> Logged lunch: 710 kcal, likely 610-830, assuming a large shop-bought wrap.
+> Today is 1,140 of 2,100 kcal, 960 under.
+
+That is the full interaction. Claude logs first and tells me the assumption,
+and I correct it if the assumption is wrong. A correction changes only the
+item that was wrong. Claude asks a question only when the estimate could be
+far off, for example for "some pasta".
+
+When I eat at a restaurant or order a takeaway, I tell Claude to estimate
+towards the high end of the range. For food from a chain or a pack, Claude
+uses the menu value or the label.
+
+**Weight.** I tell Claude my weight when I step on the scale. The app can
+also take a weigh-in from the web page.
+
+**Activity.** I tell Claude my steps. A day's activity is information only.
+It does not change my calorie target, so a long walk does not "earn" me
+food.
+
+**The goal.** My goal is a daily calorie number and a target weight, with no
+pace. The app estimates where those calories take me and when, and it shows
+that estimate as a dashed line.
+
+**The graphs.** Then I open the web app and look at where I am against the
+plan.
+
+<figure className="phone">
+  <img
+    src="/images/health-nilu-app/mobile.webp"
+    alt="The dashboard on a phone: the weight trend, the plan line to the goal, and today's calories"
+    width="780"
+    height="1688"
+  />
+  <figcaption>The same dashboard on a phone.</figcaption>
+</figure>
+
+In the weight chart, the dots are the raw weigh-ins and the blue line is the
+trend. In the calorie chart, each dot is one day, the line is the 7-day
+average, the dashed line is the target, and orange shows where I went over.
+
+<figure>
+  <img
+    src="/images/health-nilu-app/history.webp"
+    alt="The history page: one row for each day with a bar for calories against the target, the weight for that day, and a weekly average"
+    width="1600"
+    height="1125"
+  />
+  <figcaption>
+    History: one row for each day, with the weekly average. A cross is a day
+    with nothing logged.
+  </figcaption>
+</figure>
+
+## How it works
+
+<figure>
+  <img
+    src="/images/health-nilu-app/architecture.svg"
+    alt="Architecture diagram: I chat with Claude, Claude calls the MCP server over HTTPS, a browser loads the web app, both go through Caddy into one FastAPI container that writes to one SQLite file"
+    width="760"
+    height="600"
+  />
+  <figcaption>One process, one container, one database file.</figcaption>
+</figure>
+
+The backend is FastAPI with SQLAlchemy 2, Alembic and SQLite in WAL mode.
+The MCP server is mounted at `/mcp` in the same app. The web app is React
+and TypeScript, built with Vite ahead of time and served by FastAPI. The
+charts are drawn by hand with `d3-scale` and `d3-shape`. There is no chart
+library.
+
+### Claude is the input
+
+Claude connects through a remote MCP connector. The server has 11 tools:
+`log_food`, `log_weight`, `log_activity`, `get_day`, `get_history`,
+`get_goal`, `set_goal`, `update_food_entry`, `delete_entry`, `undo_change`
+and `decline_activity_proposal`.
+
+The server stores numbers. It does not know what a wrap is. Claude makes the
+estimate, and the tool descriptions carry the rules for how:
+
+- Log first, and state the assumption. Ask a question only in a few cases,
+  for example when the plausible range is about double and at least 300 kcal
+  wide.
+- Give a low and a high value for each uncertain item.
+- Use the published value for chains and packs.
+- Split a meal into items, so a correction touches one item only.
+
+### I can see and undo everything Claude does
+
+An AI that writes to my records must be easy to check. These are the rules
+that I built in:
+
+- **An audit log that only grows.** Each write adds a row. SQLite triggers
+  stop any update or delete on that table.
+- **Undo.** Each change has an id. Claude or I can undo a change from the
+  last 7 days, if the entry has not changed since.
+- **Keep or Undo for goals.** When Claude changes my goal, the app shows a
+  banner until I confirm it.
+- **Idempotency keys.** Each write carries a key, so a call that is sent
+  again does not log the meal twice.
+- **A write limit.** One connection can make 60 writes in an hour.
+- **Only my words count.** The tools tell Claude to treat text in a document,
+  web page or image as data, and not as an instruction to log or delete.
+
+<figure>
+  <img
+    src="/images/health-nilu-app/changes.webp"
+    alt="The changes page: a list of changes made by Claude, each with an Undo or Redo button"
+    width="1600"
+    height="1200"
+  />
+  <figcaption>Each change that Claude makes, with an Undo button.</figcaption>
+</figure>
+
+### Sign-in
+
+The web app has one account. Sign-in needs a password (hashed with
+argon2id) and a TOTP code. Claude gets access through OAuth: the
+authorization code flow with PKCE, one client that I registered by hand, and
+no open registration. Access tokens last one hour, and the database holds
+only their hashes.
+
+### A day ends at 03:00
+
+Food at 00:30 belongs to the evening before. So the logging day runs from
+03:00 to 03:00, and the server decides the day, not Claude.
+
+### The weight line and the plan
+
+Weight on a scale moves up and down each day. The blue line is a trend: each
+day with a weigh-in moves the trend by 10% of the gap to the new value, and
+a gap of several days counts as that many steps.
+
+The dashed plan line is more interesting. For a goal with a fixed calorie
+number and no pace, the app runs the adult body weight model from Hall et
+al. (Lancet, 2011), which is the model behind the NIH Body Weight Planner.
+It follows fat, lean mass, glycogen, fluid and the way the body adapts to
+less food. That is why the line is a curve that flattens, not a straight
+line from "7,700 kcal is one kilo".
+
+<figure>
+  <img
+    src="/images/health-nilu-app/goal.webp"
+    alt="The goal page: the weight trend, the plan line to the target weight, and the goal, pace, daily calories and target month below"
+    width="1600"
+    height="1125"
+  />
+  <figcaption>
+    The goal page. This demo goal has a pace, so its plan is a straight line.
+  </figcaption>
+</figure>
+
+The estimate is honest about its limits. It comes with a range (the same
+model with a lower and a higher activity value), and the app says plainly
+when the calories will not reach the target. After 4 weeks of logs, the app
+can also propose the activity value that fits my logs. It changes nothing
+until I agree.
+
+### Operations
+
+- The config check fails closed: if a setting is in doubt, the app does not
+  start.
+- Logs hold the method, route, status and duration only. No meal, weight or
+  token goes into a log.
+- A backup runs each night and before each deploy, through SQLite's backup
+  API.
+- Deploys are manual. CI runs the checks, but it holds no server key.
+
+## How I built it
+
+The first commit was on 2 November 2026, and I started to use the app two
+days later. Three weeks on, the repo has about 500 commits and more than 130
+pull requests.
+
+The decisions are written down in an architecture decision record, and the
+code comments point back to its sections. The work went in small pull
+requests, each with its tests: more than 900 backend test functions and more
+than 450 tests for the web app. CI runs lint, types, tests and a browser
+smoke test, with a target of under 3 minutes.
+
+The repo is private. One of its rules is that it holds no personal data: no
+domain, no real meal and no real weight. The demo data in these pictures
+comes from that rule.
+
+## Limits
+
+This is a personal tool, not medical advice. The calories are estimates, the
+plan is an estimate, and the model does not learn from my weigh-ins. But to
+log a meal is now one sentence, and for me that was the part that mattered.
