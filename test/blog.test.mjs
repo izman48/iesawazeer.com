@@ -2,7 +2,7 @@
 // `npm test` builds first so this never reads a stale export.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { getAllPosts } from '@/lib/posts';
 
@@ -56,12 +56,22 @@ test('every figure in a post has one image and a caption', () => {
   assert.ok(seen > 0, 'precondition: at least one post has a figure');
 });
 
-test('the health.nilu.app post shows the app screens and the architecture', () => {
+test('the health.nilu.app post shows the app screens', () => {
   const html = article('health-nilu-app');
-  assert.match(html, /<h1>How I built health\.nilu\.app, and how I use it<\/h1>/);
+  assert.match(html, /<h1>How I use health\.nilu\.app, the calorie tracker I built<\/h1>/);
   const sources = images(html).map((img) => attr(img, 'src'));
-  for (const name of ['dashboard.webp', 'mobile.webp', 'history.webp', 'changes.webp', 'goal.webp', 'architecture.svg']) {
+  for (const name of ['dashboard.webp', 'mobile.webp', 'history.webp', 'goal.webp', 'changes.webp']) {
     assert.ok(sources.includes(`/images/health-nilu-app/${name}`), `shows ${name}`);
+  }
+});
+
+// Owner decision: the post is for general readers, so no picture is left
+// in public/ that the post does not show.
+test('every picture in the health.nilu.app folder is used by the post', () => {
+  const sources = images(article('health-nilu-app')).map((img) => attr(img, 'src'));
+  const folder = new URL('../public/images/health-nilu-app/', import.meta.url);
+  for (const file of readdirSync(folder)) {
+    assert.ok(sources.includes(`/images/health-nilu-app/${file}`), `${file} is shown`);
   }
 });
 
