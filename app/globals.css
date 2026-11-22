@@ -215,3 +215,29 @@ footer.site-footer {
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
 }
+
+/* Pictures in blog posts: <figure><img /><figcaption /></figure> in the MDX. */
+article figure {
+  margin: 1.75rem 0;
+}
+
+article figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* A phone screenshot: narrow, so it does not fill the column. */
+article figure.phone img {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+article figcaption {
+  margin-top: 0.5rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+}
