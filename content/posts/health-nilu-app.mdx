@@ -211,22 +211,6 @@ until I agree.
   API.
 - Deploys are manual. CI runs the checks, but it holds no server key.
 
-## How I built it
-
-The first commit was on 2 November 2026, and I started to use the app two
-days later. Three weeks on, the repo has about 500 commits and more than 130
-pull requests.
-
-The decisions are written down in an architecture decision record, and the
-code comments point back to its sections. The work went in small pull
-requests, each with its tests: more than 900 backend test functions and more
-than 450 tests for the web app. CI runs lint, types, tests and a browser
-smoke test, with a target of under 3 minutes.
-
-The repo is private. One of its rules is that it holds no personal data: no
-domain, no real meal and no real weight. The demo data in these pictures
-comes from that rule.
-
 ## What is next
 
 Family and friends have asked if they can use it too. So I am considering
@@ -236,8 +220,18 @@ Today the app is built for one user: one account and one SQLite file. More
 accounts need changes to sign-in and to how the data is kept apart. I have
 not decided yet.
 
-## Limits
+## What it changed for me
 
-This is a personal tool, not medical advice. The calories are estimates, the
-plan is an estimate, and the model does not learn from my weigh-ins. But to
-log a meal is now one sentence, and for me that was the part that mattered.
+This is a personal tool, not medical advice. The calories are estimates and
+the plan is an estimate. But these four things changed for me:
+
+- **I log every day.** To log a meal is one sentence, so I do it.
+- **I know what I eat.** I see the real calories of my meals, and that
+  changes my choices.
+- **I think before I order.** At a restaurant or with a takeaway, I make a
+  different choice than before.
+- **The trend keeps me calm.** One high weigh-in does not worry me, because I
+  look at the trend line and not at one number.
+
+I built this to lose weight, for real. The app does not do that for me. It
+makes the daily part easy, and for me that was the part that mattered.
